@@ -1,27 +1,20 @@
 <!DOCTYPE HTML>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>DevXdemo</title>
-
-<!-- 1.) Load SAPUI5 (from a remote server), select theme and control library -->
-<script src="https://ui5.sap.com/resources/sap-ui-core.js"
-id="sap-ui-bootstrap" data-sap-ui-libs="sap.ui.commons, sap.ui.table" data-sap-ui-theme="sap_bluecrystal">
-</script>
-
-<!-- 2.) Use OData service named "euro" from UI5 -->
- <script>
-	var oModel = new sap.ui.model.odata.v2.ODataModel("/euro.xsodata");
-	var oTable = new sap.ui.table.Table({ title: "European Countries" });
+<head><meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<title>DevXdemo</title>
+	<script src="https://ui5.sap.com/resources/sap-ui-core.js"
+		id="sap-ui-bootstrap" data-sap-ui-libs="sap.ui.commons, sap.ui.table" data-sap-ui-theme="sap_bluecrystal">
+	</script>
 	
-	oTable.addColumn(new sap.ui.table.Column({ label: "Country Name", template: "name" }) );
-	oTable.setModel(oModel); 
-	oTable.bindRows("/euro"); 
-	oTable.placeAt("content");
-</script>
+	<script src="./Util.js"> </script>
+	<script>
+	  var oModel = new sap.ui.model.odata.ODataModel("/euro.xsodata", true);
+	  var oTable = new sap.ui.table.Table({
+	              title: "European Countries", visibleRowCount: 5, id: "tinytab",
+	              toolbar: new sap.ui.commons.Toolbar({items: [
+	              new sap.ui.commons.Button({text: "Add Country", press:openFirstDialog})
+	       ]})});
+	  oTable.addColumn(new sap.ui.table.Column({ label: "Country Name", template: "name" }));
+	  oTable.setModel(oModel); oTable.bindRows("/euro"); oTable.placeAt("content");
+	</script>
 </head>
-
-<!-- This is where you place the UI5 button -->
-	<body class="sapUiBody">
-	<div id='content'></div>
-	</body>
-</html>
+<body class='sapUiBody'> <div id='content'></div> </body> </html>
